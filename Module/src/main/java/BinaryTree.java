@@ -8,46 +8,37 @@ public record BinaryTree<T>(T val, BinaryTree<T> left, BinaryTree<T> right) {
     };
   }
 
-  public static <T> LinkedList<T> preorder(BinaryTree<T> tree) {
+  /** return Linked List of tree in preorder */
+  public static <T> Node<T> preorder(BinaryTree<T> tree) {
+    return preorderHelp(tree, null);
+  }
+
+    /** do all the work for preorder */
+    private static <T> Node<T> preorderHelp(
+      BinaryTree<T> tree,
+      Node<T> passed)
+  {
     return switch (tree) {
-      case null -> null;
-      case BinaryTree<T> t -> preorderHelp(t, null);
+      case null -> passed;
+      case BinaryTree<T>(T v, BinaryTree<T> l, BinaryTree<T> r) ->
+          new Node<>(v, preorderHelp(l, preorderHelp(r, passed)));
     };
   }
 
-  private static <T> LinkedList<T> preorderHelp(
-      BinaryTree<T> tree,
-      LinkedList<T> passed)
-  {
-    switch (tree) {
-      case null:
-        return null;
-      case BinaryTree<T>(T v, BinaryTree<T> l, BinaryTree<T> r):
-        if (r != null) {
-          passed = preorderHelp(r, passed);
-        }
-        if (l != null){
-          passed = preorderHelp(l, passed);
-        }
-          passed = new LinkedList<>(v, passed);
-    }
-    return passed;
-  }
-
-  public static <T> LinkedList<T> findPath(T val, BinaryTree<T> tree) {
+  public static <T> LinkedList<String> findPath(T val, BinaryTree<T> tree) {
     switch (tree) {
       case null:
         return null;
       case BinaryTree<T>(T v, BinaryTree<T> l, BinaryTree<T> r):
         if (v.equals(val)) {
-          return new LinkedList<T>(val, null);
+          return new LinkedList<>(null);
         } else {
-          LinkedList<T> left = findPath(val, l);
-          LinkedList<T> right = findPath(val, r);
+          LinkedList<String> left = findPath(val, l);
+          LinkedList<String> right = findPath(val, r);
           if (left != null) {
-            return new LinkedList<T>(v, left);
+            return left.addToFront("left");
           } else if (right != null) {
-            return new LinkedList<T>(v, right);
+            return right.addToFront("right");
           } else {
             return null;
           }

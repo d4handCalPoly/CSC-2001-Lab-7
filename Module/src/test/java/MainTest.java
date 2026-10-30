@@ -296,7 +296,7 @@ class MainTest {
   @Test
   void pathOne() {
     assertEquals(
-        new LinkedList<String>("Test", null),
+        new Node<String>("Test", null),
         BinaryTree.findPath(
             "Test",
             new BinaryTree<String>("Test", null, null)
@@ -306,13 +306,13 @@ class MainTest {
   @Test
   void pathLots() {
     assertEquals(
-        new LinkedList<String>(
+        new Node<String>(
             "1",
-            new LinkedList<String>(
+            new Node<String>(
                 "2",
-                new LinkedList<>("3"
+                new Node<>("3"
                     ,
-                    new LinkedList<String>("Test", null)
+                    new Node<String>("Test", null)
                 )
             )
         ),
@@ -352,10 +352,10 @@ class MainTest {
   @Test
   void preorder() {
     assertEquals(
-        new LinkedList<Integer>(12, new LinkedList<Integer>(7,
-            new LinkedList<Integer>(2, new LinkedList<Integer>(10,
-                new LinkedList<Integer>(9, new LinkedList<Integer>(18,
-                    new LinkedList<Integer>(14, new LinkedList<Integer>(23, null
+        new Node<Integer>(12, new Node<Integer>(7,
+            new Node<Integer>(2, new Node<Integer>(10,
+                new Node<Integer>(9, new Node<Integer>(18,
+                    new Node<Integer>(14, new Node<Integer>(23, null
                     ))
                 ))
             ))
